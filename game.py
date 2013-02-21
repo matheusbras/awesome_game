@@ -21,6 +21,8 @@ castle = pygame.image.load("resources/images/castle.png")
 arrow = pygame.image.load("resources/images/bullet.png")
 badguyimg1 = pygame.image.load("resources/images/badguy.png")
 badguyimg = badguyimg1
+healthbar = pygame.image.load("resources/images/healthbar.png")
+health = pygame.image.load("resources/images/health.png")
 
 while 1:
 	screen.fill(0)
@@ -107,6 +109,10 @@ while 1:
 	textRect = survivedtext.get_rect()
 	textRect.topright=[635,5]
 	screen.blit(survivedtext, textRect)
+
+	screen.blit(healthbar, (5,5))
+	for health1 in range(healthvalue):
+		screen.blit(health, (health1+8,8))
 
  	pygame.display.flip()
 	
