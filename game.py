@@ -25,14 +25,13 @@ while 1:
 	screen.blit(castle,(0,30))
 	screen.blit(castle,(0,135))
 	screen.blit(castle,(0,240))
-	screen.blit(castle,(0,345 ))
+	screen.blit(castle,(0,345))
 
 	position = pygame.mouse.get_pos()
 	angle = math.atan2(position[1]-(playerpos[1]+32),position[0]-(playerpos[0]+26))
 	playerrot = pygame.transform.rotate(player, 360-angle*57.29)
 	playerpos1 = (playerpos[0]-playerrot.get_rect().width/2, playerpos[1]-playerrot.get_rect().height/2)
 	screen.blit(playerrot, playerpos1)
-	pygame.display.flip()
 
 	for bullet in arrows:
 		index=0
@@ -40,23 +39,19 @@ while 1:
 		vely=math.sin(bullet[0])*10
 		bullet[1]+=velx
 		bullet[2]+=vely
-
 		if bullet[1]<-64 or bullet[1]>640 or bullet[2]<-64 or bullet[2]>480:
-			arrows.pop(index)
-			index+=1
+		    arrows.pop(index)
+		index+=1
 		for projectile in arrows:
-			arrow1 = pygame.transform.rotate(arrow, 360-projectile[0]*57.29)
-			screen.blit(arrow1, (projectile[1], projectile[2]))
+		    arrow1 = pygame.transform.rotate(arrow, 360-projectile[0]*57.29)
+		    screen.blit(arrow1, (projectile[1], projectile[2]))
+
+ 	pygame.display.flip()
 	
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			pygame.quit()
 			exit(0)
-
-		if event.type==pygame.MOUSEBUTTONDOWN:
-			position=pygame.mouse.get_pos()
-			acc[1]+=1
-			arrows.append([math.atan2(position[1]-(playerpos1[1]+32),position[0]-(playerpos1[0]+26)),playerpos1[0]+32,playerpos1[1]+32])
 
 		if event.type == pygame.KEYDOWN:
 			if event.key == K_w:
@@ -86,4 +81,9 @@ while 1:
 			playerpos[0] -= 5
 		elif keys[3]:
 			playerpos[0] += 5
+
+		if event.type==pygame.MOUSEBUTTONDOWN:
+			position=pygame.mouse.get_pos()
+			acc[1]+=1
+			arrows.append([math.atan2(position[1]-(playerpos1[1]+32),position[0]-(playerpos1[0]+26)),playerpos1[0]+32,playerpos1[1]+32])
 		
