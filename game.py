@@ -52,6 +52,7 @@ while 1:
 			arrows.pop(index)
 
 		index += 1
+
 		for projectile in arrows:
 			arrow1 = pygame.transform.rotate(arrow, 360-projectile[0]*57.29)
 			screen.blit(arrow1, (projectile[1], projectile[2]))
@@ -59,6 +60,7 @@ while 1:
 	if badtimer == 0:
 		badguys.append([640, random.randint(50, 430)])
 		badtimer = 100 - (badtimer1 * 2)
+
 		if badtimer >= 35:
 			badtimer1=35
 		else:
@@ -67,6 +69,7 @@ while 1:
 	index = 0
 
 	for badguy in badguys:
+
 		if badguy[0] <- 64:
 			badguys.pop(index)
 		badguy[0] -= 7
@@ -74,15 +77,36 @@ while 1:
 		badrect=pygame.Rect(badguyimg.get_rect())
 		badrect.top=badguy[1]
 		badrect.left=badguy[0]
+
 		if badrect.left<64:
 			healthvalue -= random.randint(5,20)
 			badguys.pop(index)
+
+		index1=0
+
+		for bullet in arrows:
+			bullrect=pygame.Rect(arrow.get_rect())
+			bullrect.left=bullet[1]
+			bullrect.top=bullet[2]
+
+			if badrect.colliderect(bullrect):
+				acc[0]+=1
+				badguys.pop(index)
+				arrows.pop(index1)
+
+		index1+=1
 
 		index += 1
 
 	for badguy in badguys:
 		screen.blit(badguyimg, badguy)
 
+
+	font = pygame.font.Font(None, 24)
+	survivedtext = font.render(str((90000-pygame.time.get_ticks())/60000)+":"+str((90000-pygame.time.get_ticks())/1000%60).zfill(2), True, (0,0,0))
+	textRect = survivedtext.get_rect()
+	textRect.topright=[635,5]
+	screen.blit(survivedtext, textRect)
 
  	pygame.display.flip()
 	
