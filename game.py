@@ -145,15 +145,6 @@ while running:
 			elif event.key == K_d:
 				keys[3] = False
 
-		if keys[0]:
-			playerpos[1] -= 5
-		elif keys[2]:
-			playerpos[1] += 5
-		elif keys[1]:
-			playerpos[0] -= 5
-		elif keys[3]:
-			playerpos[0] += 5
-
 		#10 - Win/Lose check
 		if pygame.time.get_ticks()>=90000:
 			running=0
@@ -170,6 +161,15 @@ while running:
 			position=pygame.mouse.get_pos()
 			acc[1]+=1
 			arrows.append([math.atan2(position[1]-(playerpos1[1]+32),position[0]-(playerpos1[0]+26)),playerpos1[0]+32,playerpos1[1]+32])
+
+	if keys[0]:
+		playerpos[1] -= 5
+	elif keys[2]:
+		playerpos[1] += 5
+	elif keys[1]:
+		playerpos[0] -= 5
+	elif keys[3]:
+		playerpos[0] += 5
 
 # 11 - Win/lose display        
 if exitcode==0:
